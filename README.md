@@ -1,16 +1,16 @@
-# video_call_test
+# Video Chat App
 
-A new Flutter project.
+This is my first video chat app project for android platforms after learning flutter & dart development on Udemy.
+I decided to make this open source to show my coding skills :)
 
-## Getting Started
+Some of it is learned from the course. However, this time I am doing it on all my own and using documentations available on website.
 
-This project is a starting point for a Flutter application.
+## APIs involved
 
-A few resources to get you started if this is your first Flutter project:
+- [Auth Firebase](https://firebase.google.com/docs/auth)
+- [Firestore Cloud (Also Firebase Product)](https://firebase.google.com/docs/firestore)
+- [Agora SDK](https://www.agora.io/en/)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### This project is WIP, not a finished product. Please bear with me if there is any problems with this app.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Copyright © 2023 yoelbuzgalo

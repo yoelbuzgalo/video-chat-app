@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:video_call_test/constants.dart';
 import 'package:video_call_test/components/rounded_button.dart';
+import 'package:video_call_test/screens/registration_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   static String id = 'WelcomeScreen';
@@ -15,23 +16,24 @@ class WelcomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Container(
-                child: Column(
-                  children: [
-                    Text(
-                      'Smart Tech\nDeaf Video Calling Service',
-                      style: AppTextStyle.titleWhiteFont,
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(
-                      height: 40,
-                    ),
-                    Image(
+              Column(
+                children: [
+                  Text(
+                    'Smart Tech\nDeaf Video Calling Service',
+                    style: AppTextStyle.titleWhiteFont,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  Hero(
+                    tag: 'logo',
+                    child: Image(
                       height: 100,
                       image: const AssetImage('images/logo.png'),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -43,10 +45,14 @@ class WelcomeScreen extends StatelessWidget {
                   SizedBox(
                     height: 30,
                   ),
-                  RoundedButton(
-                    label: 'Register',
-                    color: AppColor.darkerNavyBlue,
-                    onPressed: () => print('Registered!'),
+                  Hero(
+                    tag: 'Register-Button',
+                    child: RoundedButton(
+                      label: 'Register',
+                      color: AppColor.darkerNavyBlue,
+                      onPressed: () =>
+                          Navigator.pushNamed(context, RegistrationScreen.id),
+                    ),
                   ),
                 ],
               )
