@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "78493797024",
+    "project_id": "video-chat-test-4b72f",
+    "storage_bucket": "video-chat-test-4b72f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:78493797024:android:0b7fcb37c687d47e6197c5",
+        "android_client_info": {
+          "package_name": "com.example.video_call_test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "78493797024-ekjem2kf11jveljk6v3nm30tlddj83rb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBK2GUhJy-zGbIc6zewgLvgj7XA_HgMm6Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "78493797024-ekjem2kf11jveljk6v3nm30tlddj83rb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

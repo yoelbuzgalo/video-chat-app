@@ -1,29 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:video_call_test/constants.dart';
 import 'package:video_call_test/components/rounded_text_field.dart';
 import 'package:video_call_test/components/rounded_button.dart';
-import 'package:video_call_test/components/sign_up_animation.dart';
 import 'package:video_call_test/screens/call_start.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:video_call_test/models/user_credential.dart';
 import 'package:video_call_test/models/accounts.dart';
 import 'package:video_call_test/components/error_message.dart';
 
-class RegistrationScreen extends StatefulWidget {
-  static const String id = 'RegistrationScreen';
-  const RegistrationScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  static const String id = 'LoginScreen';
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<RegistrationScreen> createState() => _RegistrationScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _RegistrationScreenState extends State<RegistrationScreen> {
-  String _nameInput = '';
-  String _teodatZehutInput = '';
+class _LoginScreenState extends State<LoginScreen> {
   String _emailAddressInput = '';
   String _passwordInput = '';
-  bool _creatingAccount = false;
+  bool _loggingIn = false;
   bool _errorBoolean = false;
   String _errorMessage = '';
+  UserCredential userCredential = new UserCredential();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +34,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         automaticallyImplyLeading: true,
       ),
       body: ModalProgressHUD(
-        inAsyncCall: _creatingAccount,
+        inAsyncCall: _loggingIn,
         child: SingleChildScrollView(
           child: Container(
             height: MediaQuery.of(context).size.height,
@@ -52,54 +51,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ),
                 ),
                 const SizedBox(height: 50),
-                Container(
-                  height: 130,
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: AppColor.darkerNavyBlue.withOpacity(0.7),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Center(
-                    child: SignUpAnimationText(),
-                  ),
-                ),
-                const SizedBox(height: 50),
                 Text(
-                  'Registration:',
+                  'Login:',
                   style: AppTextStyle.bigWhiteFont,
                   textAlign: TextAlign.start,
                 ),
                 const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Flexible(
-                      child: RoundedTextField(
-                        onChangeCallback: (newValue) => _nameInput = newValue,
-                        keyBoardType: TextInputType.name,
-                        labelText: 'Name',
-                        icon: Icons.person,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Flexible(
-                      child: RoundedTextField(
-                        onChangeCallback: (newValue) =>
-                            _teodatZehutInput = newValue,
-                        keyBoardType: TextInputType.number,
-                        labelText: 'Teodat Zehut',
-                        icon: Icons.numbers,
-                        maxLength: 9,
-                        isDigitOnly: true,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
                 RoundedTextField(
                     onChangeCallback: (newValue) =>
                         _emailAddressInput = newValue,
@@ -118,28 +75,26 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     visible: _errorBoolean, errorMessage: _errorMessage),
                 const SizedBox(height: 50),
                 Hero(
-                  tag: 'Register-Button',
+                  tag: 'Login-Button',
                   child: RoundedButton(
-                    label: 'Register',
+                    label: 'Login',
                     color: AppColor.navyBlue,
                     onPressed: () async {
-                      setState(() => _creatingAccount = true);
-                      Status accountCreation = await Accounts.createAccount(
+                      setState(() => _loggingIn = true);
+                      Status accountLogin = await Accounts.loginAccount(
                         emailAddressInput: _emailAddressInput,
                         passwordInput: _passwordInput,
-                        nameInput: _nameInput,
-                        teodatZehutInput: _teodatZehutInput,
                       );
-                      if (accountCreation.getStatus == StatusType.success) {
+                      if (accountLogin.getStatus == StatusType.success) {
                         Navigator.pushNamed(context, CallStart.id);
                       } else {
                         setState(() {
-                          _errorMessage = accountCreation.getErrorMessage ??
+                          _errorMessage = accountLogin.getErrorMessage ??
                               'unexpected error, no error message was provided';
                           _errorBoolean = true;
                         });
                       }
-                      setState(() => _creatingAccount = false);
+                      setState(() => _loggingIn = false);
                     },
                   ),
                 ),

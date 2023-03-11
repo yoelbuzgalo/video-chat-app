@@ -1,29 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:video_call_test/models/sign_up_quotes.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:video_call_test/constants.dart';
 
 class SignUpAnimationText extends StatefulWidget {
-  SignUpAnimationText(
-      {Function(int, bool)? onNextBeforePauseCallback,
-      Function(int, bool)? onNextCallback})
-      : this._onNextBeforePause = onNextBeforePauseCallback,
-        this._onNext = onNextCallback;
-  final void Function(int, bool)? _onNextBeforePause;
-  final void Function(int, bool)? _onNext;
+  List<AnimatedText> get _getSignUpQuotes {
+    final List<String> _signUpQuotes = [
+      'Join our community and experience a video chat app designed specifically for the deaf, with unique features and accessibility options.',
+      'Communication without barriers. Sign up now for our deaf-friendly video chat app.',
+      'Connect with fellow deaf individuals in a seamless and inclusive way, with our video chat app made for you.',
+    ];
+    List<AnimatedText> animatedQuoteTexts = [];
+    for (final String quote in _signUpQuotes) {
+      animatedQuoteTexts.add(
+        ColorizeAnimatedText(
+          quote,
+          speed: Duration(milliseconds: 80),
+          textStyle: AppTextStyle.bigWhiteFont,
+          textAlign: TextAlign.center,
+          colors: [AppColor.white, AppColor.navyBlue, AppColor.darkerNavyBlue],
+        ),
+      );
+    }
+    return animatedQuoteTexts;
+  }
 
   @override
   State<SignUpAnimationText> createState() => _SignUpAnimationTextState();
 }
 
 class _SignUpAnimationTextState extends State<SignUpAnimationText> {
-  final SignUpQuotes signUpQuotes = new SignUpQuotes();
-
   @override
   Widget build(BuildContext context) {
     return AnimatedTextKit(
-        repeatForever: true,
-        onNextBeforePause: widget._onNextBeforePause,
-        onNext: widget._onNext,
-        animatedTexts: signUpQuotes.getQuotes);
+        repeatForever: true, animatedTexts: widget._getSignUpQuotes);
   }
 }
