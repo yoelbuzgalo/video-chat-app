@@ -28,20 +28,24 @@ class _WelcomeScreenState extends State<WelcomeScreen>
         value: 0.0);
     _animation =
         CurvedAnimation(parent: _controller, curve: Curves.easeOutBack);
-    playBackgroundAnimation();
+
+    _controller.addStatusListener(_handleAnimationStatus);
+    _controller.forward();
+
     super.initState();
   }
 
-  void playBackgroundAnimation() async {
-    while (true) {
-      await _controller.forward();
-      await Future.delayed(const Duration(seconds: 2));
-      await _controller.reverse();
-      if (_animation.isDismissed) {
-        _currentBackgroundIndex < 3
-            ? setState(() => _currentBackgroundIndex++)
-            : setState(() => _currentBackgroundIndex = 1);
-      }
+  void _handleAnimationStatus(AnimationStatus status) {
+    if (status == AnimationStatus.dismissed) {
+      setState(() {
+        _currentBackgroundIndex =
+        _currentBackgroundIndex < 3 ? _currentBackgroundIndex + 1 : 1;
+      });
+      _controller.forward();
+    } else if (status == AnimationStatus.completed) {
+      Future.delayed(const Duration(seconds: 2), () {
+        if (mounted) _controller.reverse();
+      });
     }
   }
 
